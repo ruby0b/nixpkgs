@@ -13,7 +13,10 @@ python3.pkgs.buildPythonApplication rec {
   postPatch = ''
     # relax version bounds
     sed -i 's/\([A-z0-9]*\)~=.*$/\1/' setup.cfg
-    # not sure what Flask-Session2 is but flask-session works just fine
+    # Flask-Session2 is required for Flask 2.3
+    # https://github.com/pyload/pyload/commit/d0d378ff46195574a4251a3f828ff94254f9b4f6
+    # current: flask.version = "2.2.2"
+    # TODO assert flask.version < "2.3"
     sed -i '/Flask-Session2/d' setup.cfg
   '';
 
